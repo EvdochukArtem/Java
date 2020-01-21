@@ -1,5 +1,3 @@
-package StackCalc;
-
 public class StackIsEmptyException extends Exception
 {
     StackIsEmptyException ()

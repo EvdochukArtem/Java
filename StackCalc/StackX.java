@@ -1,5 +1,3 @@
-package StackCalc;
-
 class StackX <T>
 {
     private T[] arr;
