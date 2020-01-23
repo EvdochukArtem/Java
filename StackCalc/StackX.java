@@ -27,15 +27,30 @@ class StackX <T>
 
     void push (T input) throws StackIsFullException
     {
-        if (!isEmpty())
+        if (!isFull())
             arr[++top] = input;
         else
             throw new StackIsFullException();
     }
 
+    void show ()
+    {
+        if (isEmpty())
+            new StackIsEmptyException();
+
+        System.out.println("Elements of the Stack:");
+        for (int i = 0; i <= top; i++)
+            System.out.print(arr[i] + " ");
+    }
+
+    int size ()
+    {
+        return top + 1;
+    }
+
     private boolean isFull()
     {
-        return (top == arr.length);
+        return (top + 1 == arr.length);
     }
 
     private boolean isEmpty()
@@ -43,19 +58,3 @@ class StackX <T>
         return (top == -1);
     }
 }
-
-/*class StackIsEmptyException extends Exception   //Make separate file
-{
-    StackIsEmptyException ()
-    {
-        System.out.println("Stack is empty!");
-    }
-}
-
-class StackIsFullException extends Exception   //Make separate file
-{
-    StackIsFullException ()
-    {
-        System.out.println("Stack is full!");
-    }
-}*/

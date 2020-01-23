@@ -1,44 +1,84 @@
 class Calculator
 {
-    private static String example;
-    private static StackX <Character> opStack;
-    private static StackX <Double> numStack;
 
     public static void main(String[] args)
     {
-        String example = "12+123";
-        double[] numArr = new double[example.length()];
-        char[] opArr = new char[example.length()];
-        readExample(numArr, opArr, example);
-        for (double d : numArr) {
-            System.out.println(d);
-        }
-        for (char c : opArr) {
-            System.out.println(c);
-        }        
+        String infixEx = "(a+b)/(c+d-1)";//"12*123-4+2/6";
+        StackX <String> postfixEx = new StackX<>(new String[infixEx.length()]);
+
+        convertInfixToPostfix(infixEx, postfixEx);
+        postfixEx.show();  
     }
 
-    private static void readExample (double[] nArr, char[] oArr, String inputExample)
+    private static void convertInfixToPostfix (String inputExample, StackX <String> outputExample)
     {
-        int i = 0;
-        int j = 0;
         inputExample += " ";
         char[] carr = inputExample.toCharArray();
         String number = "";
+        StackX <Character> opStack = new StackX<>(new Character[inputExample.length()]);
         for (char c : carr) {
-            if (Character.isDigit(c))
+            //if (Character.isDigit(c))
+            if (!isOperand(c) && c != ' ')
                 number += c;
             else 
             {
                 if (number != "")
                 {
-                    nArr[j++] = Double.parseDouble(number);
+                    try
+                    {
+                        outputExample.push(number);
+                    } catch (StackIsFullException ex)
+                    {
+                        System.out.println("postfixEx");
+                    }
                     number = "";
                 }
                 if (isOperand(c))
-                    oArr[i++] = c;
+                    try
+                    {
+                        switch (c)
+                        {
+                            case  '-':
+                            case  '+':
+                            
+                                while (opStack.size() > 0 && opStack.peek() != '(')
+                                    outputExample.push(Character.toString(opStack.pop()));
+                                opStack.push(c);
+                                break;
+
+                            case '*':
+                            case '/':
+                                if (opStack.size() > 0 && opStack.peek() == c)
+                                {
+                                    outputExample.push(Character.toString(opStack.pop()));
+                                    opStack.push(c);
+                                } else {
+                                    opStack.push(c);                                
+                                }
+                                break;
+                            case '(':
+                                opStack.push(c);
+                                break;
+                            case ')':
+                                while (opStack.size() > 0 && opStack.peek() != '(')
+                                    outputExample.push(Character.toString(opStack.pop()));
+                                opStack.pop();
+                                break;
+                        }
+                    } catch (StackIsFullException | StackIsEmptyException ex)
+                    {
+                        System.out.println("opStack");
+                    }
             }
         }
+        while (opStack.size() > 0)
+            try 
+            {
+                outputExample.push(Character.toString(opStack.pop()));
+            } catch (StackIsFullException | StackIsEmptyException ex)
+            {
+                System.out.println("outputStack");
+            }
     }
 
     private static boolean isOperand (char inputChar)
@@ -50,6 +90,8 @@ class Calculator
             case '*':
             case '/':
             case '^':
+            case '(':
+            case ')':
                 break;
             default:
                 isOperand = false;
