@@ -1,38 +1,31 @@
 class Calculator
 {
 
+    private static String infixEx;
+    private static String postfixEx;
+    private static StackX <Character> opStack;
     public static void main(String[] args)
     {
-        String infixEx = "(a+b)/(c+d-1)";//"12*123-4+2/6";
-        StackX <String> postfixEx = new StackX<>(new String[infixEx.length()]);
-
-        convertInfixToPostfix(infixEx, postfixEx);
-        postfixEx.show();  
+        postfixEx = "";
+        infixEx = "(a+b)/(c+d-1)";//"12*123-4+2/6";
+        convertInfixToPostfix(infixEx);
+        System.out.println(postfixEx);
     }
 
-    private static void convertInfixToPostfix (String inputExample, StackX <String> outputExample)
+    /*private static double calculate (final String inputPostfixEx)
     {
-        inputExample += " ";
+        double result;
+        return result;
+    }*/
+
+    private static void convertInfixToPostfix (final String inputExample)
+    {
         char[] carr = inputExample.toCharArray();
-        String number = "";
-        StackX <Character> opStack = new StackX<>(new Character[inputExample.length()]);
+        opStack = new StackX<>(new Character[inputExample.length()]);
         for (char c : carr) {
-            //if (Character.isDigit(c))
             if (!isOperand(c) && c != ' ')
-                number += c;
+                postfixEx += c;
             else 
-            {
-                if (number != "")
-                {
-                    try
-                    {
-                        outputExample.push(number);
-                    } catch (StackIsFullException ex)
-                    {
-                        System.out.println("postfixEx");
-                    }
-                    number = "";
-                }
                 if (isOperand(c))
                     try
                     {
@@ -40,17 +33,15 @@ class Calculator
                         {
                             case  '-':
                             case  '+':
-                            
                                 while (opStack.size() > 0 && opStack.peek() != '(')
-                                    outputExample.push(Character.toString(opStack.pop()));
+                                    postfixEx += opStack.pop();
                                 opStack.push(c);
                                 break;
-
                             case '*':
                             case '/':
                                 if (opStack.size() > 0 && opStack.peek() == c)
                                 {
-                                    outputExample.push(Character.toString(opStack.pop()));
+                                    postfixEx += opStack.pop();
                                     opStack.push(c);
                                 } else {
                                     opStack.push(c);                                
@@ -61,7 +52,7 @@ class Calculator
                                 break;
                             case ')':
                                 while (opStack.size() > 0 && opStack.peek() != '(')
-                                    outputExample.push(Character.toString(opStack.pop()));
+                                    postfixEx += opStack.pop();
                                 opStack.pop();
                                 break;
                         }
@@ -69,19 +60,18 @@ class Calculator
                     {
                         System.out.println("opStack");
                     }
-            }
         }
         while (opStack.size() > 0)
             try 
             {
-                outputExample.push(Character.toString(opStack.pop()));
-            } catch (StackIsFullException | StackIsEmptyException ex)
+                postfixEx += opStack.pop();
+            } catch (StackIsEmptyException ex)
             {
                 System.out.println("outputStack");
             }
     }
 
-    private static boolean isOperand (char inputChar)
+    private static boolean isOperand (final char inputChar)
     {
         boolean isOperand = true;
         switch (inputChar) {
