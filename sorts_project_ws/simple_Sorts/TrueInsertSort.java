@@ -1,8 +1,10 @@
 package simple_Sorts;
 
 class TrueInsertSort {
-    static void sort(int arr[]) {
+    static long sort(int arr[]) {
+        //System.out.print("True Insert Sort:\t");
         long startTime = System.nanoTime();
+
         int in, out;
         for(out=1; out<arr.length; out++) // out - разделительный маркер
         {
@@ -15,6 +17,9 @@ class TrueInsertSort {
             }
             arr[in] = temp; 
         }
-        System.out.println(System.nanoTime() - startTime);
+
+        long result = System.nanoTime() - startTime;
+        //System.out.println(result);
+        return result;
     }
 }

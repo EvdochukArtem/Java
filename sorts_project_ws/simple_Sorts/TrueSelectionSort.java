@@ -1,8 +1,10 @@
 package simple_Sorts;
 
 class TrueSelectionSort {
-    static void sort(int arr[]) {
+    static long sort(int arr[]) {
+        //System.out.print("True Selection Sort:\t");
         long startTime = System.nanoTime();
+
         int out, in, min;
         for(out=0; out<arr.length-1; out++) {
             min = out; // Минимум
@@ -13,6 +15,9 @@ class TrueSelectionSort {
             arr[out] = arr[min];
             arr[min] = tmp;
         }
-        System.out.println(System.nanoTime() - startTime);
+
+        long result = System.nanoTime() - startTime;
+        //System.out.println(result);
+        return result;
     }
 }

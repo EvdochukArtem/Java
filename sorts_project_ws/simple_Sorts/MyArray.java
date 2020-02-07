@@ -1,7 +1,7 @@
 package simple_Sorts;
 
-class MyArray implements Cloneable {
-
+class MyArray //implements Cloneable {
+{
     int arr[];
     private int maxSize;
     private int currSize;
@@ -10,12 +10,6 @@ class MyArray implements Cloneable {
         maxSize = n;
         arr = new int[maxSize];
         currSize = 0;
-    }
-
-    @Override
-    public MyArray clone() throws CloneNotSupportedException {
-        MyArray clone = (MyArray)super.clone();
-        return clone;
     }
 
     void fillArr(int n) {
@@ -27,6 +21,11 @@ class MyArray implements Cloneable {
         for (int i : arr)
             System.out.print(i + " ");
         System.out.println();
+    }
+
+    void arrayCompare(final int[] arr)
+    {
+        System.out.println("Arrays are equal: " + java.util.Arrays.equals(this.arr, arr));
     }
 
     int getCurrSize() {return currSize;}
