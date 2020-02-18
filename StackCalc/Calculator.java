@@ -12,11 +12,10 @@ class Calculator
     {
         if (!inputExampleIsCorrect(infixEx))
         {
-            System.out.println("Example isn't correct. Use only digits and operators +,-,*,/,^!");
             throw new InvalidExampleException();
         }    
         String postfixEx = convertInfixToPostfix(infixEx.replaceAll(" ", ""));
-        System.out.println(postfixEx);
+        //System.out.println(postfixEx);
         return calculatePostfixExample(postfixEx);
     }
 

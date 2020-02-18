@@ -4,6 +4,6 @@ public class InvalidExampleException extends Exception
 
     InvalidExampleException()
     {
-        System.out.println("Exception is incorrect!");
+        System.out.println("Example isn't correct. Use only digits and operators +,-,*,/,^!");
     }
 }

@@ -1,14 +1,23 @@
+import java.io.*;
+
 class CalculatorApp
 {
     public static void main(String[] args)
     {
-        String example = "(-10 +5^26) / (7^-15 + 8 - 1^0)";
-        //String example = "()";
-        //String example = "5 - 3";
+        System.out.print("Enter example: ");
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Calculator calc = new Calculator();
+        while(true)
         try
         {
-            System.out.println(calc.calculate(example));
-        } catch (InvalidExampleException ex) {}
+            String example = br.readLine();
+            if (example.equals("exit"))
+                break;
+            else
+                System.out.println(example + " = " + calc.calculate(example));
+        } 
+        catch (InvalidExampleException|IOException ex) {
+            System.out.print("Invalid input, try again:");
+        }        
     }
 }
