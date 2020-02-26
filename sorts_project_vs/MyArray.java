@@ -1,5 +1,3 @@
-package simple_Sorts;
-
 class MyArray //implements Cloneable {
 {
     int arr[];
