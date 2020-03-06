@@ -1,68 +1,23 @@
-package simple_Sorts;
+package simple;
 
-class SelectionSort {
-    static long sort(int arr[]) {
-        //System.out.print("Selection Sort: \t");
-        long startTime = System.nanoTime();
-        int tmp;
-        //Начинаем со второго элемента и до конца
-        for(int mark = 1; mark < arr.length; mark++)
-        //до выбранного выше
-            for(int i = 0; i < mark; i++)
-                if(arr[mark] < arr[i])
-                { //если меньше то меняем их местами
-                    tmp = arr[mark];
-                    arr[mark] = arr[i];
-                    arr[i] = tmp;
-                }
-        
-        long result = System.nanoTime() - startTime;
-        //System.out.println(result);
-        return result;
-    }
+public class SelectionSort {
 
-    static long sort1(int arr[]) {
-        //System.out.print("Selection Sort1:\t");
-        long startTime = System.nanoTime();
+    public static long sort(int arr[])
+    {
+        long start = System.nanoTime();
 
-        //Начинаем со второго элемента и до конца
-        for(int mark = 1; mark < arr.length; mark++)
+        int min;
+        for (int i = 0; i < arr.length - 1; i++)
         {
-            int tmp;
-            //до выбранного выше
-            for(int i = 0; i < mark; i++)
-                if(arr[mark] < arr[i])
-                { //если меньше то меняем их местами
-                    tmp = arr[mark];
-                    arr[mark] = arr[i];
-                    arr[i] = tmp;
-                }
+            min = i;
+            for (int j = i + 1; j < arr.length; j++)
+                if (arr[j] < arr[min])
+                    min = j;
+            int tmp = arr[min];
+            arr[min] = arr[i];
+            arr[i] = tmp;
         }
 
-        long result = System.nanoTime() - startTime;
-        //System.out.println(result);
-        return result;
-    }
-
-    static long sort2(int arr[]) {
-        //System.out.print("Selection Sort1:\t");
-        long startTime = System.nanoTime();
-
-        //Начинаем со второго элемента и до конца
-        for(int mark = 1; mark < arr.length; mark++)
-        {
-            //до выбранного выше
-            for(int i = 0; i < mark; i++)
-                if(arr[mark] < arr[i])
-                { //если меньше то меняем их местами
-                    int tmp = arr[mark];
-                    arr[mark] = arr[i];
-                    arr[i] = tmp;
-                }
-        }
-
-        long result = System.nanoTime() - startTime;
-        //System.out.println(result);
-        return result;
+        return System.nanoTime() - start;
     }
 }

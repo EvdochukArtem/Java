@@ -1,7 +1,9 @@
-package simple_Sorts;
+package simple;
 
-class BubbelSort {
-    static void sort(int arr[]) {
+public class BubbleSort {
+
+    public static long sort(int arr[])
+    {
         long startTime = System.nanoTime();
         for (int i = arr.length; i > 0; i--)
             for (int j = 0; j < i-1; j++) {
@@ -11,6 +13,6 @@ class BubbelSort {
                     arr[j+1] = tmp;
                 }
             }
-        System.out.println(System.nanoTime() - startTime);
+        return System.nanoTime() - startTime;
     }
 }
